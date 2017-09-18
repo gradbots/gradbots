@@ -18,8 +18,13 @@ import robocode.WinEvent;
 
 public class GradBot extends AdvancedRobot {
 	
+	private RadarController radarCon;
+	
 	public void run(){
-		setColors(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE);		
+		
+		radarCon = new RadarController(this);		
+		setColors(Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE, Color.BLUE);
+		turnRadarRight(360);
 		while(true){
 			execute();
 		}
@@ -27,6 +32,7 @@ public class GradBot extends AdvancedRobot {
 	
 	@Override
 	public void onScannedRobot(ScannedRobotEvent event) {
+		radarCon.onScannedRobot(event);
 	}
 	
 	@Override
