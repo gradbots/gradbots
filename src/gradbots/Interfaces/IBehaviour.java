@@ -19,33 +19,33 @@ import robocode.WinEvent;
 //   which could drive behaviour
 public interface IBehaviour 
 {
-	public void doDefault();
+	public default void doDefault() {}
 	
-	public void onBattleEnded(BattleEndedEvent e);
+	public default void onBattleEnded(BattleEndedEvent e) {}
 	
-	public void onBulletHit(BulletHitEvent e);
+	public default void onBulletHit(BulletHitEvent e) {}
 	
-	public void onBulletHitBullet(BulletHitBulletEvent e);
+	public default void onBulletHitBullet(BulletHitBulletEvent e) {}
 	
-	public void onBulletMissed(BulletMissedEvent e);
+	public default void onBulletMissed(BulletMissedEvent e) {}
 	
-	public void onDeath(DeathEvent e);
+	public default void onDeath(DeathEvent e) {}
 	
-	public void onHitByBullet(HitByBulletEvent e);
+	public default void onHitByBullet(HitByBulletEvent e) {}
 	
-	public void onHitRobot(HitRobotEvent e);
+	public default void onHitRobot(HitRobotEvent e) {}
 	
-	public void onHitWall(HitWallEvent e);
+	public default void onHitWall(HitWallEvent e) {}
 	
-	public void onRobotDeath(RobotDeathEvent e);
+	public default void onRobotDeath(RobotDeathEvent e) {}
 	
-	public void onRoundEnded(RoundEndedEvent e);
+	public default void onRoundEnded(RoundEndedEvent e) {}
 	
-	public void onScannedRobot(ScannedRobotEvent e);
+	public default void onScannedRobot(ScannedRobotEvent e) {}
 	
-	public void onStatus(StatusEvent e);
+	public default void onStatus(StatusEvent e) {}
 	
-	public void onWin(WinEvent e);
+	public default void onWin(WinEvent e) {}
 	
-	public void onSkippedTurn(SkippedTurnEvent e);
+	public default void onSkippedTurn(SkippedTurnEvent e) {}
 }
