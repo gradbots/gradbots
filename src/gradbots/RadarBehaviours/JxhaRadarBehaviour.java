@@ -6,18 +6,22 @@ package gradbots.RadarBehaviours;
 
 import gradbots.GradBot;
 import gradbots.Interfaces.IRadarBehaviour;
+import robocode.BulletHitEvent;
 import robocode.ScannedRobotEvent;
 import robocode.util.Utils;
+import gradbots.radarProcessing;
 
 public class JxhaRadarBehaviour implements IRadarBehaviour
 {
 	
 	protected GradBot GradBot;
 	private boolean scanningForInfo = false;
+	private radarProcessing radar;
 	
 	public JxhaRadarBehaviour(GradBot gradbot)
 	{
 		this.GradBot = gradbot;
+		radar = new radarProcessing(gradbot);
 	}
 	
 	public void doDefault(){
@@ -36,6 +40,12 @@ public class JxhaRadarBehaviour implements IRadarBehaviour
 		else if (scanningForInfo && GradBot.getTurnRemaining()==0){
 			scanningForInfo = false;
 		}
+		
+		radar.onScannedRobot(e);
+	}
+	
+	public void onBulletHit(BulletHitEvent e) {
+		radar.onBulletHit(e);
 	}
 	
 	public void scanForTarget()
