@@ -13,6 +13,15 @@ public final class BehaviourProfileManager
 	
 	public static IBehaviourProfile Choose(GradBot robot)
 	{
+		if (health < X && others > 4)
+		{
+			return new BehaviourProfile(robot)
+			
+		}
+		else (Y)
+		{
+			
+		}
 		return new BehaviourProfileBase(robot);
 	}
 }
