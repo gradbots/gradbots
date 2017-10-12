@@ -15,12 +15,15 @@ import robocode.SkippedTurnEvent;
 import robocode.StatusEvent;
 import robocode.WinEvent;
 
-// This interface is a generic template which defines the events 
-//   which could drive behaviour
-public interface IBehaviour 
+/**
+ * This interface contains handlers for all of the default events
+ *   published during a battle.
+ * 
+ * @author KAHX
+ *
+ */
+public interface IEventHandler 
 {
-	public default void doDefault() {}
-	
 	public default void onBattleEnded(BattleEndedEvent e) {}
 	
 	public default void onBulletHit(BulletHitEvent e) {}

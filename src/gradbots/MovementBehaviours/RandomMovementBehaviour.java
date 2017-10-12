@@ -2,6 +2,7 @@ package gradbots.MovementBehaviours;
 
 import java.awt.geom.Rectangle2D;
 import gradbots.GradBot;
+import gradbots.GradBotWrappers.MovementWrapper;
 import gradbots.Interfaces.IMovementBehaviour;
 import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
@@ -15,13 +16,18 @@ public class RandomMovementBehaviour implements IMovementBehaviour
 	
 	private static final double moveDist = 250;
 	
-	protected GradBot robot;
+	protected MovementWrapper robot;
 	
 	public static int dir = 1;
 	    
-	public RandomMovementBehaviour(GradBot r)
+	public RandomMovementBehaviour(MovementWrapper mw)
 	{
-		robot = r;
+		robot = mw;
+	}
+	
+	public void doDefault() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public void onScannedRobot(ScannedRobotEvent e)
@@ -38,7 +44,7 @@ public class RandomMovementBehaviour implements IMovementBehaviour
  
 		if (Math.abs(turnAmount) > 90) {
 			turnAmount = Utils.normalRelativeAngleDegrees(turnAmount + 180);
-			robot.setBack(moveDist);
+			robot.setAhead(-moveDist);
 		} else {
 			robot.setAhead(moveDist);
 		}
@@ -46,23 +52,19 @@ public class RandomMovementBehaviour implements IMovementBehaviour
 		if (Math.random() < 0.5)
 			robot.setTurnRight(turnAmount);
 		else
-			robot.setTurnLeft(turnAmount);
+			robot.setTurnRight(-turnAmount);
  
 		if (Math.random() < changeDirThres)
 			dir = -dir;
 	}
  
- 
 	public void onHitWall(HitWallEvent e) 
 	{
-		robot.setBack(moveDist);
+		robot.setAhead(-moveDist);
 	}
 	
 	public void onHitRobot(HitWallEvent e) 
 	{
-		robot.setBack(moveDist);
+		robot.setAhead(-moveDist);
 	}
-	
-
-	
 }
