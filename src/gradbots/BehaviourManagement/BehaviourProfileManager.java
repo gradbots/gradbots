@@ -10,11 +10,6 @@ import gradbots.Interfaces.IBehaviourProfile;
 import gradbots.MovementBehaviours.RandomMovementBehaviour;
 import gradbots.RadarBehaviours.JxhaRadarBehaviour;
 
-//Remarks:
-//What information will this class use to decide behaviour?
-//Should it store the last given behaviour and change it, 
-//rather than newing up each time?
-
 /**
  * This class is responsible for deciding the behaviour profile
  * for the robot to use.

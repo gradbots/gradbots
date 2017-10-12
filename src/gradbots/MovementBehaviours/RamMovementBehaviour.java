@@ -1,38 +1,35 @@
 package gradbots.MovementBehaviours;
 
 import gradbots.GradBot;
+import gradbots.GradBotWrappers.MovementWrapper;
 import gradbots.Interfaces.IMovementBehaviour;
 import robocode.ScannedRobotEvent;
+import robocode.util.Utils;
 
 /**
- * This movement behaviour is all about raming the enemy that we are tracking
+ * This movement behaviour is all about ramming the enemy that we are tracking
  * @author jyba
  *
  */
-public class RamMovementBehaviour implements IMovementBehaviour {
+public class RamMovementBehaviour implements IMovementBehaviour 
+{
+	protected MovementWrapper movementWrapper;
 	
-	protected GradBot robot;
-	private GradBot enemyRobot;
-	private double enemyBearing = 360;
-	
-	public RamMovementBehaviour(GradBot r)
+	public RamMovementBehaviour(MovementWrapper mw)
 	{
-		robot = r;
+		movementWrapper = mw;
 	}
 	
-	public void onScannedEvent(ScannedRobotEvent e)
+	public void onScannedRobot(ScannedRobotEvent e)
 	{
-		enemyBearing = e.getBearing();
-		robot.setTurnRight(enemyBearing);
+		double turn = Utils.normalRelativeAngleDegrees(e.getBearing());
+		movementWrapper.setTurnRight(turn);
+		
+		movementWrapper.setAhead(100);
 	}
 	
 	public void doDefault()
 	{
-		if (robot.getHeading() != enemyBearing)
-		{
-			robot.setTurnRight(enemyBearing);
-		}
-		
-		robot.setAhead(enemyBearing);
+
 	}
 }
