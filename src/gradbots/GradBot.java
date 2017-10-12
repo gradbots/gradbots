@@ -31,10 +31,9 @@ public class GradBot extends AdvancedRobot
 		// allow independent gun/radar/turn
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
-		
-		profile = BehaviourProfileManager.Choose(this);
 				
 		while(true){
+			profile = BehaviourProfileManager.Choose(this);
 			profile.doDefault();
 			execute();
 		}
@@ -84,9 +83,6 @@ public class GradBot extends AdvancedRobot
 	
 	public void onRobotDeath(RobotDeathEvent e)
 	{
-		// re-evaluate profile to use
-		profile = BehaviourProfileManager.Choose(this);
-		
 		profile.onRobotDeath(e);
 	}
 	
@@ -114,6 +110,5 @@ public class GradBot extends AdvancedRobot
 	{
 		profile.onSkippedTurn(e);
 	}
-
 }
 

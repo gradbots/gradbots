@@ -4,57 +4,50 @@
 
 package gradbots.RadarBehaviours;
 
-import gradbots.GradBot;
+import gradbots.GradBotWrappers.RadarWrapper;
 import gradbots.Interfaces.IRadarBehaviour;
-import robocode.BulletHitEvent;
 import robocode.ScannedRobotEvent;
 import robocode.util.Utils;
-import gradbots.radarProcessing;
 
 public class JxhaRadarBehaviour implements IRadarBehaviour
 {
-	
-	protected GradBot GradBot;
+	protected RadarWrapper radarWrapper;
 	private boolean scanningForInfo = false;
-	private radarProcessing radar;
 	
-	public JxhaRadarBehaviour(GradBot gradbot)
+	public JxhaRadarBehaviour(RadarWrapper rw)
 	{
-		this.GradBot = gradbot;
-		radar = new radarProcessing(gradbot);
+		radarWrapper = rw;
 	}
 	
-	public void doDefault(){
-		scanForTarget();
+	public void doDefault()
+	{
+		if (radarWrapper.getRadarTurnRemaining() == 0)
+			scanForTarget();
 	}
 	
 	public void onScannedRobot(ScannedRobotEvent e) 
 	{
-		
-		if(!scanningForInfo){
+		if(!scanningForInfo)
+		{
 			//Radar Lock On 
-			double radarTurn = GradBot.getHeadingRadians() + e.getBearingRadians() - GradBot.getRadarHeadingRadians();
-			GradBot.setTurnRadarRightRadians(Utils.normalRelativeAngle(radarTurn));
+			double radarTurn = radarWrapper.getHeading() + e.getBearing() - radarWrapper.getRadarHeading();
+			radarWrapper.setTurnRadarRight(Utils.normalRelativeAngleDegrees(radarTurn));
 			//GradBot.scan();
 		}	
-		else if (scanningForInfo && GradBot.getTurnRemaining()==0){
+		else if (scanningForInfo && radarWrapper.getTurnRemaining()==0)
+		{
 			scanningForInfo = false;
 		}
-		
-		radar.onScannedRobot(e);
-	}
-	
-	public void onBulletHit(BulletHitEvent e) {
-		radar.onBulletHit(e);
 	}
 	
 	public void scanForTarget()
 	{
-		GradBot.setTurnRadarRight(Double.MAX_VALUE);
+		radarWrapper.setTurnRadarRight(Double.MAX_VALUE);
 	}
 	
-	public void scanForInfo(){
-		GradBot.setTurnRadarRight(380);
+	public void scanForInfo()
+	{
+		radarWrapper.setTurnRadarRight(380);
 		scanningForInfo = true;
 	}
 }

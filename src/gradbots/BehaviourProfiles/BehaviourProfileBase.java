@@ -1,12 +1,16 @@
 package gradbots.BehaviourProfiles;
 
 import gradbots.GradBot;
+import gradbots.GradBotWrappers.GunWrapper;
+import gradbots.GradBotWrappers.MovementWrapper;
+import gradbots.GradBotWrappers.RadarWrapper;
 import gradbots.GunBehaviours.GunBehaviourBase;
 import gradbots.Interfaces.IBehaviourProfile;
 import gradbots.Interfaces.IGunBehaviour;
 import gradbots.Interfaces.IMovementBehaviour;
 import gradbots.Interfaces.IRadarBehaviour;
 import gradbots.MovementBehaviours.MovementBehaviourBase;
+import gradbots.MovementBehaviours.RandomMovementBehaviour;
 import gradbots.RadarBehaviours.RadarBehaviourBase;
 import robocode.BattleEndedEvent;
 import robocode.BulletHitBulletEvent;
@@ -23,21 +27,29 @@ import robocode.SkippedTurnEvent;
 import robocode.StatusEvent;
 import robocode.WinEvent;
 
+/**
+ * Default collection of gun, movement and radar behaviours.
+ * 
+ * @author KAHX
+ *
+ */
 public class BehaviourProfileBase implements IBehaviourProfile
 {
 	public IGunBehaviour      gunBehaviour;
 	public IMovementBehaviour movementBehaviour;
 	public IRadarBehaviour    radarBehaviour;
 	
-	private GradBot robot;
+	protected GradBot robot;
 	
 	public BehaviourProfileBase(GradBot r)
 	{
-		robot = r;
+		GunWrapper      gunWrapper      = new GunWrapper(r);
+		MovementWrapper movementWrapper = new MovementWrapper(r);
+		RadarWrapper    radarWrapper    = new RadarWrapper(r);
 		
-		gunBehaviour      = new GunBehaviourBase(robot);
-		movementBehaviour = new MovementBehaviourBase(robot);
-		radarBehaviour    = new RadarBehaviourBase(robot);
+		gunBehaviour      = new GunBehaviourBase(gunWrapper);
+		movementBehaviour = new MovementBehaviourBase(movementWrapper);
+		radarBehaviour    = new RadarBehaviourBase(radarWrapper);
 	}
 	
 	public void setGunBehaviour(IGunBehaviour newGunBehaviour) 
